@@ -43,43 +43,14 @@ npm run build
 npm run deploy
 ```
 **Структура проекта**
-📦src
- ┣ 📂components
- ┃ ┣ 📜Board.tsx
- ┃ ┣ 📜Button.tsx
- ┃ ┗ 📜Cell.tsx
- ┣ 📂hooks
- ┃ ┗ 📜useGameLogic.ts
- ┣ 📂pages
- ┃ ┣ 📜FinalScreenPage.tsx
- ┃ ┣ 📜GamePage.tsx
- ┃ ┣ 📜LeaderboardPage.tsx
- ┃ ┣ 📜Rules.tsx
- ┃ ┗ 📜SettingsPage.tsx
- ┣ 📂styles
- ┃ ┣ 📜Button.css
- ┃ ┣ 📜Cell.css
- ┃ ┣ 📜FinalScreenPage.css
- ┃ ┣ 📜GamePage.css
- ┃ ┣ 📜Global.css
- ┃ ┣ 📜LeaderBoard.css
- ┃ ┣ 📜Rules.css
- ┃ ┣ 📜SettingsPage.css
- ┃ ┗ 📜Text.css
- ┣ 📂utils
- ┃ ┣ 📜boardUtils.ts
- ┃ ┣ 📜leaderboard.ts
- ┃ ┣ 📜scoreUtils.ts
- ┃ ┗ 📜timerUtils.ts
- ┣ 📜App.css
- ┣ 📜App.test.tsx
- ┣ 📜App.tsx
- ┣ 📜index.css
- ┣ 📜index.tsx
- ┣ 📜logo.svg
- ┣ 📜react-app-env.d.ts
- ┣ 📜reportWebVitals.ts
- ┗ 📜setupTests.ts
+src/
+├─ components/     
+├─ pages/            
+├─ store/            
+├─ utils/            
+├─ styles/           
+├─ index.tsx         
+├─ App.tsx 
  **Звуки и изображения**
  Все ресурсы находятся в public/ и подключаются через process.env.PUBLIC_URL.
  
