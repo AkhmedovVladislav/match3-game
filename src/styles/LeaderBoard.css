@@ -1,0 +1,95 @@
+
+.leaderboard-panel {
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  padding: 50px 70px;
+  max-width: 900px;
+  width: 90%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  text-align: center;
+  color: #e0fcff;
+  position: relative;
+  z-index: 2;
+}
+
+.leaderboard-title {
+  font-size: 3.8rem;
+  margin: 0 0 30px 0;
+  color: #f0fcff;
+  text-shadow: 0 0 30px #a0f0ff, 0 0 60px #60c0ff;
+  animation: icyGlowText 5s infinite alternate;
+}
+
+.leaderboard-table {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 30px;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.leaderboard-table th,
+.leaderboard-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.leaderboard-table th {
+  color: #a0f0ff;
+}
+
+.leaderboard-table td {
+  color: #e0fcff;
+}
+
+.leaderboard-button {
+  font-size: 1.5rem;
+  padding: 16px 50px;
+  margin-top: 20px;
+}
+
+.snow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+@media (max-width: 400px) {
+  .leaderboard-panel {
+    padding: 20px 15px;
+    width: 95%;
+  }
+
+  .leaderboard-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+
+  .leaderboard-table {
+    font-size: 0.9rem;
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+  }
+
+  .leaderboard-table th,
+  .leaderboard-table td {
+    padding: 6px 8px;
+  }
+
+  .leaderboard-button {
+    font-size: 1.2rem;
+    padding: 12px 30px;
+  }
+}
+@media (max-width: 400px) {
+  .page-container {
+    background-size: auto 100%; 
+  }
+}

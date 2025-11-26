@@ -1,0 +1,20 @@
+.page-container {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Arial', sans-serif;
+  color: #e0fcff;
+}
+
+@keyframes icyGlowText {
+  0%, 100% { 
+    text-shadow: 0 0 20px #a0eaff, 0 0 40px #60c0ff; 
+  }
+  50% { 
+    text-shadow: 0 0 30px #a0f0ff, 0 0 60px #80d0ff, 0 0 80px #60c0ff; 
+  }
+}
+

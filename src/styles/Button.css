@@ -1,0 +1,46 @@
+.button {
+  background: linear-gradient(145deg, #a0eaff, #e0f7ff);
+  border: 2px solid #d0f0ff;
+  border-radius: 12px;
+  padding: 10px 20px;
+  margin: 5px;
+  color: #003366;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(160, 240, 255, 0.6);
+  transition: transform 0.15s ease, box-shadow 0.3s ease, background 0.3s ease;
+  backdrop-filter: blur(2px);
+  animation: icyGlow 3s infinite alternate ease-in-out;
+}
+
+.button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(160, 240, 255, 0.9);
+  background: linear-gradient(145deg, #b0f0ff, #f0fcff);
+}
+
+.button:active {
+  transform: scale(0.95);
+  box-shadow: 0 3px 6px rgba(160, 240, 255, 0.5);
+  background: linear-gradient(145deg, #90e0ff, #d0f7ff);
+}
+
+@keyframes icyGlow {
+  0% {
+    box-shadow: 0 4px 12px rgba(160, 240, 255, 0.6);
+    background: linear-gradient(145deg, #a0eaff, #e0f7ff);
+  }
+  50% {
+    box-shadow: 0 6px 20px rgba(180, 255, 255, 0.9);
+    background: linear-gradient(145deg, #b0f0ff, #f0fcff);
+  }
+  100% {
+    box-shadow: 0 4px 12px rgba(160, 240, 255, 0.6);
+    background: linear-gradient(145deg, #a0eaff, #e0f7ff);
+  }
+}
+
+@media (max-width: 400px) {
+  .button { font-size: 0.9rem; padding: 8px 16px; }
+}

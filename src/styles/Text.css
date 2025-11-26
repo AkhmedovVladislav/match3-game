@@ -1,0 +1,56 @@
+.game-container h2,
+.game-container h3,
+.game-container h4 {
+  font-family: 'Fredoka One', cursive; 
+  color: #f0f8ff; 
+  font-size: 2rem; 
+  margin: 10px 0;
+
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.7),
+    0 0 8px rgba(173, 216, 230, 0.6),
+    0 0 12px rgba(135, 206, 250, 0.5);
+}
+
+.score-time {
+  font-family: 'Fredoka One', cursive;
+  font-weight: bold;
+  font-size: 1.6rem; 
+  color: #e0f7ff;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.7),
+    0 0 8px rgba(173, 216, 230, 0.6),
+    0 0 12px rgba(135, 206, 250, 0.5);
+  margin: 5px 0;
+}
+
+.score-time-container {
+  display: flex;
+  justify-content: center; 
+  gap: 40px; 
+  margin: 10px 0;
+  font-family: 'Fredoka One', cursive; 
+  font-size: 1.8rem; 
+  color: #e0f7ff;
+  text-shadow:
+    0 0 4px rgba(255, 255, 255, 0.8),
+    0 0 8px rgba(173, 216, 230, 0.6),
+    0 0 12px rgba(135, 206, 250, 0.5);
+  font-weight: bold;
+}
+
+@keyframes icyGlowText {
+  0%, 100% { 
+    text-shadow: 0 0 20px #a0eaff, 0 0 40px #60c0ff; 
+  }
+  50% { 
+    text-shadow: 0 0 30px #a0f0ff, 0 0 60px #80d0ff, 0 0 80px #60c0ff; 
+  }
+}
+
+.icy-glow-title {
+  font-size: 3.5rem;    
+  margin: 0 0 10px 0;
+  color: #ffffffff;
+  animation: icyGlowText 4s infinite alternate;
+}

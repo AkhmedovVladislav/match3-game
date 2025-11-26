@@ -1,0 +1,185 @@
+.page-container {
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Arial', sans-serif;
+  background-size: cover;
+  background-position: center;
+}
+
+.panel {
+  background: rgba(51, 39, 39, 0.62);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 40px 60px;
+  box-shadow: 0 15px 35px rgba(56, 44, 44, 0.3);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  text-align: center;
+  max-width: 600px;
+  width: 90%;
+  position: relative;
+  z-index: 2;
+}
+
+.h1-glow {
+  font-size: 3.5rem;
+  margin: 0 0 10px 0;
+  color: #ffffff;
+  animation: icyGlowText 4s infinite alternate;
+}
+
+.h2-glow {
+  color: #b0f0ff;
+  font-size: 1.8rem;
+  margin: 0 0 40px 0;
+}
+
+.difficulty-selector {
+  margin-bottom: 40px;
+}
+
+.difficulty-selector h3 {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.difficulty-options {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.difficulty-option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.3rem;
+  color: #ffffff;
+  cursor: pointer;
+  padding: 12px 20px;
+  border-radius: 12px;
+  transition: all 0.3s ease;
+  width: 300px;
+}
+
+.difficulty-option input[type="radio"] {
+  transform: scale(1.4);
+  cursor: pointer;
+}
+
+.difficulty-option.selected {
+  background: rgba(160, 240, 255, 0.3);
+  border: 2px solid #a0f0ff;
+}
+
+.difficulty-option:hover:not(.selected) {
+  background: rgba(160, 240, 255, 0.15);
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.button-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.snow-container {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+
+@media (max-width: 400px) {
+  .panel {
+    padding: 20px 30px;
+  }
+
+  .h1-glow {
+    font-size: 2rem;
+  }
+
+  .h2-glow {
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+  }
+
+  .difficulty-selector h3 {
+    font-size: 1.2rem;
+  }
+
+  .difficulty-option {
+    font-size: 1rem;
+    width: 90%;
+    padding: 10px 14px;
+  }
+
+  .button-group {
+    gap: 12px;
+  }
+
+  .button-group .start-button {
+    font-size: 1.2rem;
+    padding: 12px 30px;
+  }
+}
+@media (max-width: 360px) {
+  .difficulty-option p {
+    font-size: 0.95rem !important;
+    line-height: 1.3;
+    white-space: nowrap;        
+  }
+
+  .difficulty-option span {
+    font-size: 0.85rem !important;
+  }
+
+  .difficulty-selector {
+    gap: 10px;
+    padding: 0 5px;
+  }
+
+  .difficulty-option {
+    padding: 12px 8px;
+  }
+}
+
+@media (max-width: 480px) {
+  .start-button {
+    width: 90% !important;
+    max-width: 320px !important;
+    padding: 18px 24px !important;
+    font-size: 1.4rem !important;
+    font-weight: bold !important;
+    margin: 30px auto 20px !important;
+    display: block;
+  }
+
+  .rules-button,
+  .leaderboard-button {
+    width: 90% !important;
+    max-width: 320px !important;
+    padding: 16px 20px !important;
+    font-size: 1.2rem !important;
+  }
+}
+
+.button-group > .button {
+  min-width: 50px;
+  padding: 18px 40px;
+  font-size: 1.5rem;
+}
