@@ -1,17 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import Button from '../components/Button';
 import '../styles/Text.css';
 import '../styles/Button.css';
 import '../styles/LeaderBoard.css';
-import { RootState } from '../store';
-import { formatTime } from '../utils/timerUtils';
+import { getLeaderboard } from '../utils/leaderboard';
+import { formatTime } from "../utils/timerUtils";
 
 const LeaderBoard = () => {
   const navigate = useNavigate();
   const snowRef = useRef<HTMLDivElement>(null);
-  const leaderboard = useSelector((state: RootState) => state.leaderboard.entries);
+  const leaderboard = getLeaderboard();
 
   useEffect(() => {
     const container = snowRef.current;
