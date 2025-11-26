@@ -35,7 +35,7 @@ const LeaderBoard = () => {
     <div
       className="page-container"
       style={{
-        backgroundImage: `url(/images/leaderboard-bg.jpg)`,
+        backgroundImage: `url(${process.env.PUBLIC_URL}/images/leaderboard-bg.jpg)`,
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

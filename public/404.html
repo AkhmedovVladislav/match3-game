@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Page Not Found</title>
+    <script type="text/javascript">
+      // SPA redirect for GitHub Pages
+      (function() {
+        var redirectTo = '/match3-game/';
+        var pathSegmentsToKeep = 1;
+
+        var loc = window.location;
+        var path = loc.pathname.split('/').slice(pathSegmentsToKeep).join('/');
+        var qs = loc.search + loc.hash;
+        window.location.replace(redirectTo + '?' + path + qs);
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

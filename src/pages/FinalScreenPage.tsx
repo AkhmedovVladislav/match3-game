@@ -23,7 +23,7 @@ const FinalScreenPage = () => {
   const victorySound = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    victorySound.current = new Audio('/sounds/victory.mp3');
+    victorySound.current = new Audio(`${process.env.PUBLIC_URL}/sounds/victory.mp3`);
     victorySound.current.volume = 0.6;
     victorySound.current.play().catch(() => {});
 

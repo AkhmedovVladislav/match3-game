@@ -8,7 +8,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<ButtonProps> = ({ children, onClick, ...props }) => {
   const playClickSound = () => {
-    const audio = new Audio("/sounds/button.mp3");
+    const audio = new Audio(`${process.env.PUBLIC_URL}/sounds/button.mp3`);
     audio.volume = 0.4;
     audio.play().catch(() => {}); 
   };

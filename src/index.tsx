@@ -10,6 +10,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <BrowserRouter basename="/match3-game">
-    <App />
+  <App />
   </BrowserRouter>
 );

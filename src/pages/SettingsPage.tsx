@@ -36,7 +36,7 @@ const SettingsPage = () => {
   return (
     <div
       className="page-container settings-bg"
-      style={{ backgroundImage: `url(/images/main-bg.jpg)` }}
+      style={{ backgroundImage: `url(${process.env.PUBLIC_URL}/images/main-bg.jpg)` }}
     >
       <div className="snow-container" ref={snowRef}></div>
 

@@ -41,9 +41,9 @@ const GamePage = () => {
   const errorSound = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    matchSound.current = new Audio("/sounds/match.mp3");   
-    clickSound.current = new Audio("/sounds/click.mp3");     
-    errorSound.current = new Audio("/sounds/error.mp3");       
+    matchSound.current = new Audio(`${process.env.PUBLIC_URL}/sounds/match.mp3`);   
+    clickSound.current = new Audio(`${process.env.PUBLIC_URL}/sounds/click.mp3`);     
+    errorSound.current = new Audio(`${process.env.PUBLIC_URL}/sounds/error.mp3`);       
 
     [matchSound, clickSound, errorSound].forEach(sound => {
       if (sound.current) sound.current.volume = 0.4;
@@ -110,7 +110,7 @@ const GamePage = () => {
   const soundtrackRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-  soundtrackRef.current = new Audio("/sounds/soundtrack.mp3"); 
+  soundtrackRef.current = new Audio(`${process.env.PUBLIC_URL}/sounds/soundtrack.mp3`); 
   soundtrackRef.current.loop = true;
   soundtrackRef.current.volume = 0.3;  
 
@@ -127,7 +127,7 @@ const GamePage = () => {
     <div
       className="game-container"
       style={{
-        backgroundImage: `url(/images/image5.jpg)`,
+        backgroundImage: `url(${process.env.PUBLIC_URL}/images/image5.jpg)`,
       }}
     >
       <div className="snow-container" ref={snowRef}></div>
