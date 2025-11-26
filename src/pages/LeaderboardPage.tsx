@@ -59,7 +59,7 @@ const LeaderBoard = () => {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{entry.name}</td>
-                <td>{entry.time}</td>
+                <td>formatTime({entry.time})</td>
                 <td>{entry.difficulty}</td>
               </tr>
             ))}
