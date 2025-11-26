@@ -5,6 +5,7 @@ import '../styles/Text.css';
 import '../styles/Button.css';
 import '../styles/LeaderBoard.css';
 import { getLeaderboard } from '../utils/leaderboard';
+import { formatTime } from "../utils/timerUtils";
 
 const LeaderBoard = () => {
   const navigate = useNavigate();
@@ -59,7 +60,7 @@ const LeaderBoard = () => {
               <tr key={index}>
                 <td>{index + 1}</td>
                 <td>{entry.name}</td>
-                <td>formatTime({entry.time})</td>
+                <td>{formatTime(entry.time)}</td>
                 <td>{entry.difficulty}</td>
               </tr>
             ))}
