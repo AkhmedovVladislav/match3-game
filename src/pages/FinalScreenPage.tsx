@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { addLeaderboardEntry } from '../utils/leaderboard';
+import { useDispatch } from 'react-redux';
+import { addEntry } from '../store/leaderboardSlice';
 import Button from '../components/Button';
 import '../styles/Text.css';
 import '../styles/Button.css';
 import '../styles/FinalScreenPage.css';
+import { AppDispatch } from '../store';
 
 const FinalScreenPage = () => {
   const navigate = useNavigate();
@@ -21,12 +23,15 @@ const FinalScreenPage = () => {
   const snowRef = useRef<HTMLDivElement>(null);
   const confettiRef = useRef<HTMLDivElement>(null);
   const victorySound = useRef<HTMLAudioElement | null>(null);
+  const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
+    // Звук победы
     victorySound.current = new Audio(`${process.env.PUBLIC_URL}/sounds/victory.mp3`);
     victorySound.current.volume = 0.6;
     victorySound.current.play().catch(() => {});
 
+    // Конфетти
     const container = confettiRef.current;
     if (container) {
       const colors = ['#ff6b6b', '#4ecdc4', '#f1c40f', '#a0eaff', '#ff9ff3', '#f39c12'];
@@ -42,6 +47,7 @@ const FinalScreenPage = () => {
       }
     }
 
+    // Снег
     const snowContainer = snowRef.current;
     if (!snowContainer) return;
     const interval = setInterval(() => {
@@ -61,7 +67,14 @@ const FinalScreenPage = () => {
 
   const handleSubmit = () => {
     if (!playerName.trim()) return;
-    addLeaderboardEntry({ name: playerName.trim(), time, difficulty });
+
+    dispatch(
+      addEntry({
+        name: playerName.trim(),
+        time,
+        difficulty,
+      })
+    );
     setSubmitted(true);
   };
 
@@ -81,7 +94,7 @@ const FinalScreenPage = () => {
         minHeight: '100vh',
         position: 'relative',
       }}
-      >
+    >
       <div className="snow-container" ref={snowRef}></div>
       <div className="confetti-container" ref={confettiRef}></div>
 
@@ -90,9 +103,15 @@ const FinalScreenPage = () => {
         <h2 className="final-subtitle">Новый год спасён!</h2>
 
         <div className="final-stats">
-          <p><strong>Сложность:</strong> <span style={{ color: '#01c4c4ff' }}>{difficulty.toUpperCase()}</span></p>
-          <p><strong>Очки:</strong> <span style={{ color: '#4ecdc4', fontSize: '2.2rem' }}>{score}</span></p>
-          <p><strong>Время:</strong> <span style={{ color: '#a0eaff' }}>{formatTime(time)}</span></p>
+          <p>
+            <strong>Сложность:</strong> <span style={{ color: '#01c4c4ff' }}>{difficulty.toUpperCase()}</span>
+          </p>
+          <p>
+            <strong>Очки:</strong> <span style={{ color: '#4ecdc4', fontSize: '2.2rem' }}>{score}</span>
+          </p>
+          <p>
+            <strong>Время:</strong> <span style={{ color: '#a0eaff' }}>{formatTime(time)}</span>
+          </p>
         </div>
 
         {!submitted ? (
