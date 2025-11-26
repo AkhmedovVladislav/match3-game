@@ -1,46 +1,59 @@
-# Getting Started with Create React App
+# Match3 Game 🎮
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Описание:**
+Игра «Три в ряд» (Match-3) на React с TypeScript.
 
-## Available Scripts
+**Функционал:**
 
-In the project directory, you can run:
+* Игровое поле с интерактивными элементами.
+* Таблица лидеров с отображением времени в формате мм:сс.
+* Разные уровни сложности.
+* Музыкальное сопровождение и звуковые эффекты.
+* Анимации (например, падающий снег на экране таблицы лидеров).
 
-### `npm start`
+**Технологии:**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+* React, TypeScript, CSS
+* React Router v7
+* GitHub Pages для деплоя
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+**Деплой:**
+Рабочая версия доступна по ссылке: [https://akhmedovvladislav.github.io/match3-game/](https://akhmedovvladislav.github.io/match3-game/)
 
-### `npm test`
+**Скриншоты / GIF:**
+Главное меню:
+![Main Menu](./assets/screenshots/main-menu.png)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Игровой процесс:
+![Game Play](./assets/screenshots/gameplay.gif)
 
-### `npm run build`
+Таблица лидеров:
+![Leaderboard](./assets/screenshots/leaderboard.png)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Запуск локально:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```bash
+git clone https://github.com/AkhmedovVladislav/match3-game.git
+cd match3-game
+npm install
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Открой [http://localhost:3000](http://localhost:3000) в браузере.
 
-### `npm run eject`
+**Сборка и деплой на GitHub Pages:**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```bash
+npm run build
+npm run deploy
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Примечание:**
+Таблица лидеров хранится локально в браузере, поэтому очки не синхронизируются между устройствами.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**Лицензия:**
+MIT (или указать свою)
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+---
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Если хочешь, я могу сразу добавить в README структуру папок `assets/screenshots`, чтобы твои скриншоты и GIF отображались правильно без ручной правки путей. Хочешь, чтобы я это сделал?
