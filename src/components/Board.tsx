@@ -1,7 +1,7 @@
 import React from "react";
 import Cell from "./Cell";
 import "../styles/Board.css";
-import { isMatchingCell, findFallingCell, getCellStyle } from "../utils/boardUtils"; // используем существующий файл
+import { isMatchingCell, findFallingCell, getCellStyle } from "../utils/boardUtils";
 
 interface CellObj { id: string; value: string }
 
