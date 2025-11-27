@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/match3-game/static/css/main.d3804de4.css",
-    "main.js": "/match3-game/static/js/main.c496a6a2.js",
+    "main.css": "/match3-game/static/css/main.d3ecf018.css",
+    "main.js": "/match3-game/static/js/main.c74251c3.js",
     "index.html": "/match3-game/index.html",
-    "main.d3804de4.css.map": "/match3-game/static/css/main.d3804de4.css.map",
-    "main.c496a6a2.js.map": "/match3-game/static/js/main.c496a6a2.js.map"
+    "main.d3ecf018.css.map": "/match3-game/static/css/main.d3ecf018.css.map",
+    "main.c74251c3.js.map": "/match3-game/static/js/main.c74251c3.js.map"
   },
   "entrypoints": [
-    "static/css/main.d3804de4.css",
-    "static/js/main.c496a6a2.js"
+    "static/css/main.d3ecf018.css",
+    "static/js/main.c74251c3.js"
   ]
 }
