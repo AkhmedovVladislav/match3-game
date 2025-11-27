@@ -1,3 +1,10 @@
+.page-container {
+  background: linear-gradient(135deg, #001833 0%, #003366 50%, #004488 100%);
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  position: relative;
+}
 
 .final-panel {
   background: rgba(0, 0, 0, 0.4);
@@ -12,6 +19,7 @@
   color: #e0fcff;
   position: relative;
   z-index: 10;
+  margin: 0 auto;
 }
 
 .final-title {
@@ -39,6 +47,19 @@
   font-weight: bold;
 }
 
+.final-stats .difficulty {
+  color: #01c4c4ff;
+}
+
+.final-stats .score {
+  color: #4ecdc4;
+  font-size: 2.2rem;
+}
+
+.final-stats .time {
+  color: #a0eaff;
+}
+
 .player-input-container {
   display: flex;
   flex-direction: column;
@@ -63,6 +84,13 @@
   gap: 20px;
   flex-wrap: wrap;
   justify-content: center;
+}
+
+.final-message {
+  margin: 40px 0;
+  font-size: 2rem;
+  color: #01c4c4ff;
+  margin-bottom: 30px;
 }
 
 .confetti-container .confetti {
@@ -128,6 +156,10 @@
     max-width: 280px;
     padding: 14px 20px;
     font-size: 1.1rem;
+  }
+
+  .final-message {
+    font-size: 1.6rem;
   }
 }
 

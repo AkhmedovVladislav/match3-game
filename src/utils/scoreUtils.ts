@@ -1,12 +1,13 @@
-//Считает набранные очки
+import { CellObj } from "./boardUtils";
+
 export const calculateScore = (
-  matches: { row: number; col: number }[],
-  grid: string[][],
+  matches: { row: number; col: number; element: string }[],
+  grid: CellObj[][],
   difficulty: 'easy' | 'medium' | 'hard',
   selectedTargetElement: string | null
 ): number => {
   if (difficulty === 'hard' && selectedTargetElement) {
-    return matches.filter(({ row, col }) => grid[row][col] === selectedTargetElement).length;
+    return matches.filter(({ row, col }) => grid[row][col].value === selectedTargetElement).length;
   }
   return matches.length;
 };

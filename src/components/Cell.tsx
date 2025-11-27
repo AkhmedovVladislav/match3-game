@@ -6,14 +6,15 @@ interface CellProps {
   onClick: () => void;
   isSelected: boolean;
   extraClass?: string;
-  style?: React.CSSProperties; 
+  style?: React.CSSProperties;
 }
 
-const Cell = ({ value, onClick, isSelected, extraClass = "" }: CellProps) => {
+const Cell = ({ value, onClick, isSelected, extraClass = "", style }: CellProps) => {
   return (
     <div
       className={`cell ${isSelected ? "selected-cell" : ""} ${extraClass}`}
       onClick={onClick}
+      style={style}
     >
       {value}
     </div>

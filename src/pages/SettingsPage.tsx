@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
+import { startSnowfall } from "../utils/snowfall";
 import '../styles/Global.css';
 import '../styles/SettingsPage.css';
 
@@ -10,24 +11,12 @@ const SettingsPage = () => {
   const snowRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const container = snowRef.current;
-    if (!container) return;
-
-    const interval = setInterval(() => {
-      const flake = document.createElement('div');
-      flake.className = 'snowflake';
-      flake.textContent = '❄️';
-      flake.style.left = `${Math.random() * 100}%`;
-      flake.style.animationDuration = `${4 + Math.random() * 4}s`;
-      flake.style.opacity = String(0.7 + Math.random() * 0.3);
-      flake.style.fontSize = `${10 + Math.random() * 15}px`;
-      container.appendChild(flake);
-
-      setTimeout(() => flake.remove(), 8000);
-    }, 200);
-
-    return () => clearInterval(interval);
-  }, []);
+      const container = snowRef.current;
+      if (!container) return;
+  
+      const stopSnow = startSnowfall(container);
+      return () => stopSnow(); 
+    }, []);
 
   const startGame = () => {
     navigate('/game', { state: { difficulty } });

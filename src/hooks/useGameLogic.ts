@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import {
-  fixGrid,
   swapCells,
   findMatches,
   removeMatches,
+  collapseWithNewCells,
   hasPossibleMoves,
+  fixGrid,
+  CellObj,
 } from "../utils/boardUtils";
 import { calculateScore } from "../utils/scoreUtils";
 
@@ -28,10 +30,12 @@ interface UseGameLogicProps {
   onGameOver: (score: number, time: number) => void;
 }
 
+const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
+
 export const useGameLogic = ({ difficulty, elements, onGameOver }: UseGameLogicProps) => {
   const size = difficulty === "easy" ? 12 : 8;
 
-  const [grid, setGrid] = useState<string[][]>([]);
+  const [grid, setGrid] = useState<CellObj[][]>([]);
   const [score, setScore] = useState(0);
   const [goalScore, setGoalScore] = useState(0);
   const [time, setTime] = useState(0);
@@ -44,15 +48,29 @@ export const useGameLogic = ({ difficulty, elements, onGameOver }: UseGameLogicP
     newCells: [],
   });
 
-  // === Инициализация ===
+  useEffect(() => {
+  if (!grid.length) return;
+
+ 
+  if (!hasPossibleMoves(grid, elements)) {
+    const newGrid = Array.from({ length: size }, () =>
+      Array.from({ length: size }, () => elements[Math.floor(Math.random() * elements.length)])
+    );
+    setGrid(fixGrid(
+      newGrid.map(row => row.map(val => ({ id: `${Date.now()}_${Math.random()}`, value: val }))),
+      elements
+    ));
+  }
+ }, [grid, elements, size]);
+
   useEffect(() => {
     switch (difficulty) {
       case "easy": setGoalScore(40); break;
       case "medium": setGoalScore(50); break;
       case "hard":
         setGoalScore(25);
-        const randomIndex = Math.floor(Math.random() * elements.length);
-        setSelectedTargetElement(elements[randomIndex]);
+        const idx = Math.floor(Math.random() * elements.length);
+        setSelectedTargetElement(elements[idx]);
         break;
     }
   }, [difficulty, elements]);
@@ -63,50 +81,20 @@ export const useGameLogic = ({ difficulty, elements, onGameOver }: UseGameLogicP
     return () => clearInterval(interval);
   }, [timeIsRunning]);
 
+ 
   useEffect(() => {
     const baseGrid = Array.from({ length: size }, () =>
       Array.from({ length: size }, () => elements[Math.floor(Math.random() * elements.length)])
     );
-    setGrid(fixGrid(baseGrid, elements));
-  }, [size]);
+    const cellGrid = fixGrid(
+      baseGrid.map(row => row.map(val => ({ id: `${Date.now()}_${Math.random()}`, value: val }))),
+      elements
+    );
+    setGrid(cellGrid);
+  }, [size, elements]);
 
-  const areNeighbors = (a: SelectedCell, b: SelectedCell) => {
-    const dx = Math.abs(a.col - b.col);
-    const dy = Math.abs(a.row - b.row);
-    return (dx === 1 && dy === 0) || (dx === 0 && dy === 1);
-  };
-
-  
-  const collapseWithNewCells = (grid: string[][], elements: string[]) => {
-    const size = grid.length;
-    const newGrid = grid.map(row => [...row]);
-    const falling: { row: number; col: number; distance: number }[] = [];
-    const newCells: { row: number; col: number }[] = [];
-
-    for (let col = 0; col < size; col++) {
-      let writeRow = size - 1;
-      let emptyCount = 0;
-
-      for (let row = size - 1; row >= 0; row--) {
-        if (newGrid[row][col] === "") {
-          emptyCount++;
-        } else {
-          if (emptyCount > 0) {
-            falling.push({ row: writeRow, col, distance: emptyCount });
-          }
-          newGrid[writeRow][col] = newGrid[row][col];
-          writeRow--;
-        }
-      }
-
-      for (let row = writeRow; row >= 0; row--) {
-        newGrid[row][col] = elements[Math.floor(Math.random() * elements.length)];
-        newCells.push({ row, col });
-      }
-    }
-
-    return { grid: newGrid, falling, newCells };
-  };
+  const areNeighbors = (a: SelectedCell, b: SelectedCell) =>
+    (Math.abs(a.row - b.row) === 1 && a.col === b.col) || (Math.abs(a.col - b.col) === 1 && a.row === b.row);
 
   const handleCellClick = (row: number, col: number) => {
     if (!grid.length) return;
@@ -130,74 +118,76 @@ export const useGameLogic = ({ difficulty, elements, onGameOver }: UseGameLogicP
     const tempGrid = swapCells(grid, selectedCell, targetCell);
     const matches = findMatches(tempGrid);
 
-    if (matches.length > 0) {
-      setGrid(tempGrid);
-      setAnimation(prev => ({ ...prev, matches }));
-
-      setTimeout(() => {
-        let currentGrid = tempGrid;
-        let totalScore = 0;
-
-        const processChain = () => {
-          const currentMatches = findMatches(currentGrid);
-          if (currentMatches.length === 0) {
-            setSelectedCell(null);
-            setAnimation({ matches: [], falling: [], newCells: [] });
-            if (!hasPossibleMoves(currentGrid, elements)) {
-              const fresh = Array.from({ length: size }, () =>
-                Array.from({ length: size }, () => elements[Math.floor(Math.random() * elements.length)])
-              );
-              setGrid(fixGrid(fresh, elements));
-            }
-            return;
-          }
-
-          totalScore += calculateScore(currentMatches, currentGrid, difficulty, selectedTargetElement);
-          currentGrid = removeMatches(currentGrid, currentMatches);
-          const { grid: collapsed, falling, newCells } = collapseWithNewCells(currentGrid, elements);
-          currentGrid = collapsed;
-
-          setGrid(currentGrid);
-          setAnimation(prev => ({ ...prev, falling, newCells, matches: [] }));
-
-          setScore(prev => {
-            const newScore = prev + totalScore;
-            if (newScore >= goalScore) {
-              setTimeIsRunning(false);
-              onGameOver(newScore, time);
-            }
-            return newScore;
-          });
-
-          setTimeout(processChain, 620);
-        };
-
-        processChain();
-      }, 550);
-    } else {
+    if (matches.length === 0) {
       if (difficulty === "easy") {
         setGrid(tempGrid);
       } else {
         setScore(prev => Math.max(prev - 5, 0));
         setAnimation(prev => ({ ...prev, shake: true }));
-        setTimeout(() => {
-          setAnimation(prev => ({ ...prev, shake: false }));
-          const fresh = Array.from({ length: size }, () =>
-            Array.from({ length: size }, () => elements[Math.floor(Math.random() * elements.length)])
-          );
-          setGrid(fixGrid(fresh, elements));
-        }, 500);
+        setTimeout(() => setAnimation(prev => ({ ...prev, shake: false })), 500);
       }
       setSelectedCell(null);
+      return;
     }
+
+    const processChain = async (currentGrid: CellObj[][]) => {
+    let totalScore = 0;
+
+    setGrid(currentGrid);
+    setAnimation({ matches: [], falling: [], newCells: [] });
+    await sleep(120);
+
+    let gridCopy = currentGrid;
+
+    while (true) {
+      const currentMatches = findMatches(gridCopy);
+      if (!currentMatches.length) break;
+
+      totalScore += calculateScore(
+        currentMatches.map(m => ({ row: m.row, col: m.col, element: gridCopy[m.row][m.col].value })),
+        gridCopy,
+        difficulty,
+        selectedTargetElement
+      );
+
+      setAnimation({ matches: currentMatches, falling: [], newCells: [] });
+      await sleep(200); 
+
+      const afterRemove = removeMatches(gridCopy, currentMatches);
+      const { grid: collapsed, falling } = collapseWithNewCells(afterRemove, elements);
+
+      gridCopy = collapsed;
+      setGrid(collapsed);
+      setAnimation({ matches: [], falling, newCells: [] }); 
+
+      await sleep(100);
+    }
+
+    setScore(prev => {
+      const newScore = prev + totalScore;
+      if (newScore >= goalScore) {
+        setTimeIsRunning(false);
+        onGameOver(newScore, time);
+      }
+      return newScore;
+    });
+
+    setSelectedCell(null);
+    setAnimation({ matches: [], falling: [], newCells: [] });
   };
+
+      processChain(tempGrid);
+    };
 
   const handleRefresh = () => {
     if (difficulty !== "easy") setScore(prev => Math.max(prev - 5, 0));
     const newGrid = Array.from({ length: size }, () =>
       Array.from({ length: size }, () => elements[Math.floor(Math.random() * elements.length)])
     );
-    setGrid(fixGrid(newGrid, elements));
+    setGrid(fixGrid(
+      newGrid.map(row => row.map(val => ({ id: `${Date.now()}_${Math.random()}`, value: val }))),
+      elements
+    ));
   };
 
   const resetGame = () => {
@@ -208,7 +198,10 @@ export const useGameLogic = ({ difficulty, elements, onGameOver }: UseGameLogicP
     const newGrid = Array.from({ length: size }, () =>
       Array.from({ length: size }, () => elements[Math.floor(Math.random() * elements.length)])
     );
-    setGrid(fixGrid(newGrid, elements));
+    setGrid(fixGrid(
+      newGrid.map(row => row.map(val => ({ id: `${Date.now()}_${Math.random()}`, value: val }))),
+      elements
+    ));
   };
 
   return {

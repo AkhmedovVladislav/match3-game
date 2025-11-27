@@ -4,6 +4,7 @@ import Button from '../components/Button';
 import '../styles/Text.css';
 import '../styles/Button.css';
 import '../styles/LeaderBoard.css';
+import { startSnowfall } from "../utils/snowfall";
 import { getLeaderboard } from '../utils/leaderboard';
 import { formatTime } from "../utils/timerUtils";
 
@@ -13,24 +14,13 @@ const LeaderBoard = () => {
   const leaderboard = getLeaderboard();
 
   useEffect(() => {
-    const container = snowRef.current;
-    if (!container) return;
-
-    const interval = setInterval(() => {
-      const flake = document.createElement('div');
-      flake.className = 'snowflake';
-      flake.textContent = '❄️';
-      flake.style.left = `${Math.random() * 100}%`;
-      flake.style.animationDuration = `${4 + Math.random() * 4}s`;
-      flake.style.opacity = String(0.7 + Math.random() * 0.3);
-      flake.style.fontSize = `${10 + Math.random() * 15}px`;
-      container.appendChild(flake);
-
-      setTimeout(() => flake.remove(), 8000);
-    }, 200);
-
-    return () => clearInterval(interval);
-  }, []);
+      const container = snowRef.current;
+      if (!container) return;
+  
+      const stopSnow = startSnowfall(container);
+  
+      return () => stopSnow(); 
+    }, []);
 
   return (
     <div

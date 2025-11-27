@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../components/Button';
+import { startSnowfall } from "../utils/snowfall";
 import '../styles/Text.css';
 import '../styles/Button.css';
 import '../styles/Rules.css';
@@ -13,35 +14,12 @@ const Rules = () => {
     const container = snowRef.current;
     if (!container) return;
 
-    const interval = setInterval(() => {
-      const flake = document.createElement('div');
-      flake.className = 'snowflake';
-      flake.textContent = '❄️';
-      flake.style.left = `${Math.random() * 100}%`;
-      flake.style.animationDuration = `${5 + Math.random() * 5}s`;
-      flake.style.opacity = String(0.6 + Math.random() * 0.4);
-      flake.style.fontSize = `${12 + Math.random() * 12}px`;
-      container.appendChild(flake);
-      setTimeout(() => flake.remove(), 10000);
-    }, 220);
-
-    return () => clearInterval(interval);
+    const stopSnow = startSnowfall(container);
+    return () => stopSnow(); 
   }, []);
 
   return (
-    <div
-  className="page-container"
-  style={{
-    minHeight: "100vh",
-    background: "linear-gradient(135deg, #001833 0%, #003366 50%, #004488 100%)",
-    position: "relative",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "20px 10px",
-    boxSizing: "border-box",
-  }}
->
+    <div className="rules-page-container">
       <div className="snow-container" ref={snowRef}></div>
 
       <div className="rules-panel">
@@ -80,7 +58,6 @@ const Rules = () => {
             <li>Очки начисляются за каждый удалённый предмет</li>
             <li>Кнопка «Обновить поле» — −5 очков</li>
             <li>Игра заканчивается при достижении цели</li>
-
           </ul>
         </div>
 
@@ -96,4 +73,3 @@ const Rules = () => {
 };
 
 export default Rules;
-

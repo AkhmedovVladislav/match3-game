@@ -1,0 +1,23 @@
+.board-grid {
+  display: grid;
+  gap: clamp(1.5px, 0.4vw, 3px);
+  width: min(96vw, 560px);
+  aspect-ratio: 1 / 1;
+  margin: 0 auto;
+  padding: 6px;
+  box-sizing: border-box;
+  max-width: 100%;
+  background: rgba(255,255,255,0.1);
+  border-radius: 14px;
+  box-shadow: 0 6px 24px rgba(0,0,0,0.25);
+  overflow: hidden;
+}
+
+.board-grid.shake {
+  animation: shake 0.5s;
+}
+
+.cell-wrapper {
+  position: relative;
+  overflow: hidden;
+}

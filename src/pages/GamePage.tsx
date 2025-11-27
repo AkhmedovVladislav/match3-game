@@ -2,6 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import Board from "../components/Board";
 import { useGameLogic } from "../hooks/useGameLogic";
+import { startSnowfall } from "../utils/snowfall";
+import { spawnConfetti } from "../utils/confetti";
 import { formatTime } from "../utils/timerUtils";
 import '../styles/GamePage.css';
 import '../styles/Button.css';
@@ -66,43 +68,16 @@ const GamePage = () => {
     const container = snowRef.current;
     if (!container) return;
 
-    const interval = setInterval(() => {
-      const flake = document.createElement("div");
-      flake.className = "snowflake";
-      flake.textContent = "❄️";
-      flake.style.left = `${Math.random() * 100}%`;
-      const duration = 4 + Math.random() * 3;
-      flake.style.animationDuration = `${duration}s`;
-      container.appendChild(flake);
-      setTimeout(() => flake.remove(), duration * 1000);
-    }, 200);
+    const stopSnow = startSnowfall(container);
 
-    return () => clearInterval(interval);
+    return () => stopSnow(); 
   }, []);
 
-  const spawnConfetti = () => {
-    const container = confettiRef.current;
-    if (!container) return;
-
-    for (let i = 0; i < 15; i++) {
-      const confetti = document.createElement("div");
-      confetti.className = "confetti";
-      confetti.style.left = `${Math.random() * container.offsetWidth}px`;
-      confetti.style.top = `0px`;
-      confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 70%, 60%)`;
-      container.appendChild(confetti);
-
-      const duration = 1 + Math.random() * 1.5;
-      confetti.style.animationDuration = `${duration}s`;
-
-      setTimeout(() => confetti.remove(), duration * 1000);
-    }
-  };
 
   const handleCellClickWithSound = (row: number, col: number) => {
     clickSound.current?.play();
     handleCellClick(row, col);
-    spawnConfetti();
+    if (confettiRef.current) spawnConfetti(confettiRef.current);
   };
 
   const [soundEnabled, setSoundEnabled] = useState(true);  
